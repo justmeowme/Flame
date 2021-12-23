@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Level1Kitchen">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/upper_menu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#D7D7D7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/book"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/mybook" />
+
+        <ImageView
+            android:id="@+id/dictionary"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/book"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/mydict" />
+
+        <ImageView
+            android:id="@+id/list"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dictionary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/mylist" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upper_menu">
+
+        <LinearLayout
+            android:id="@+id/back_kitchen"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_background_chb"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/refrigerator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20sp"
+                android:layout_marginBottom="36sp"
+                app:srcCompat="@drawable/ic_refrigirator_chb" />
+
+            <ImageView
+                android:id="@+id/garnitur1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="36sp"
+                app:srcCompat="@drawable/ic_garnitur1_chb" />
+
+            <ImageView
+                android:id="@+id/oven"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="36sp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_oven_chb" />
+
+            <ImageView
+                android:id="@+id/garnitur2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="36sp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_garnitur2_chb" />
+
+
+            <ImageView
+                android:id="@+id/table"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="32sp"
+                android:layout_marginBottom="36sp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                app:srcCompat="@drawable/ic_table_chb"
+                tools:ignore="MissingConstraints" />
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
