@@ -10,10 +10,7 @@
         android:id="@+id/upper_menu"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#D7D7D7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="#D7D7D7">
 
         <ImageView
             android:id="@+id/book"
@@ -52,9 +49,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upper_menu">
+        app:layout_constraintTop_toBottomOf="@+id/upper_menu"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/back_kitchen"
@@ -111,7 +109,45 @@
                 app:srcCompat="@drawable/ic_table_chb"
                 tools:ignore="MissingConstraints" />
 
+            <ImageView
+                android:id="@+id/player"
+                android:layout_width="133dp"
+                android:layout_height="319dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/new_pers" />
+
 
         </LinearLayout>
     </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/ButtonLeft"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="40dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#001757D8"
+        app:icon="@drawable/arrow_color"
+        app:iconTint="#CD5A5A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/ButtonRight"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:background="#00C62424"
+        android:backgroundTint="#00AF1818"
+        android:rotationY="180"
+        app:icon="@drawable/arrow_color"
+        app:iconTint="#CD5A5A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:strokeColor="#00A62121" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

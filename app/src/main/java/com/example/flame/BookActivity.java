@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class BookActivity extends AppCompatActivity {
+public class  BookActivity extends AppCompatActivity {
 
     ImageView mCross, toLeft, toRight;
     int current_word;

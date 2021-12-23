@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         progressBar = findViewById(R.id.progressBar);
         progress = 0;
         mCount = findViewById(R.id.count);
