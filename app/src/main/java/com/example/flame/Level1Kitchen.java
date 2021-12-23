@@ -1,9 +1,5 @@
 package com.example.flame;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -17,15 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class Level1Kitchen extends AppCompatActivity {
 
@@ -56,42 +47,36 @@ public class Level1Kitchen extends AppCompatActivity {
         left = findViewById(R.id.ButtonLeft);       //левая кнопка
         right = findViewById(R.id.ButtonRight);     //правая кнопка
 
-        new Handler().postDelayed(new Runnable() {      //ставим отложенный запуск кода, ибо инициализация ещё не прошла
-            @Override
-            public void run() {
-                end_X = (int)player.getX();             //получаем конечную координату, за которую мы не должны выходить(при условии, что пользователь изначально стоит в конце карты)
-                move(-(player.getX()/10),true);     //Двигаем пользователя в начало(аля в 0 координаты)
-            }
+        //ставим отложенный запуск кода, ибо инициализация ещё не прошла
+        new Handler().postDelayed(() -> {
+            end_X = (int)player.getX();             //получаем конечную координату, за которую мы не должны выходить(при условии, что пользователь изначально стоит в конце карты)
+            move(-(player.getX()/10),true);     //Двигаем пользователя в начало(аля в 0 координаты)
         },100);
 
-        left.setOnTouchListener(new View.OnTouchListener() {        //обработчик левой кнопки
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        dX = -1;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        dX = 0;
-                        break;
-                }
-                return false;
+        //обработчик левой кнопки
+        left.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    dX = -1;
+                    break;
+                case MotionEvent.ACTION_UP:
+                    dX = 0;
+                    break;
             }
+            return false;
         });
 
-        right.setOnTouchListener(new View.OnTouchListener() {       //обработчик правой кнопки
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        dX = 1;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        dX = 0;
-                        break;
-                }
-                    return false;
+        //обработчик правой кнопки
+        right.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    dX = 1;
+                    break;
+                case MotionEvent.ACTION_UP:
+                    dX = 0;
+                    break;
             }
+                return false;
         });
 
         /*
@@ -113,187 +98,146 @@ public class Level1Kitchen extends AppCompatActivity {
         * ---------------------------Конец костыля-------------------------------
         */
 
-        mTable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
-                View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
-                builder.setView(view);
+        mTable.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
+            View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
+            builder.setView(view);
 
-                AlertDialog alert = builder.create();
+            AlertDialog alert = builder.create();
 
-                EditText formWord = view.findViewById(R.id.word);
-                Button formSubmit = view.findViewById(R.id.check);
+            EditText formWord = view.findViewById(R.id.word);
+            Button formSubmit = view.findViewById(R.id.check);
 
-                formSubmit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String user_word = formWord.getText().toString().trim();
-                        if (user_word.equals("стол")){
-                            mTable.setImageResource(R.drawable.ic_table);
-                            alert.dismiss();
-                        } else{
-                            Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-                alert.show();
-            }
+            formSubmit.setOnClickListener(v1 -> {
+                String user_word = formWord.getText().toString().trim();
+                if (user_word.equals("стол")){
+                    mTable.setImageResource(R.drawable.ic_table);
+                    alert.dismiss();
+                } else{
+                    Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
+                }
+            });
+            alert.show();
         });
 
-        mRefrigerator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
-                View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
-                builder.setView(view);
+        mRefrigerator.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
+            View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
+            builder.setView(view);
 
-                AlertDialog alert = builder.create();
+            AlertDialog alert = builder.create();
 
-                EditText formWord = view.findViewById(R.id.word);
-                Button formSubmit = view.findViewById(R.id.check);
+            EditText formWord = view.findViewById(R.id.word);
+            Button formSubmit = view.findViewById(R.id.check);
 
-                formSubmit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String user_word = formWord.getText().toString().trim();
-                        if (user_word.equals("холодильник")){
-                            mRefrigerator.setImageResource(R.drawable.ic_refrigirator);
-                            alert.dismiss();
-                        } else{
-                            Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-                alert.show();
-            }
+            formSubmit.setOnClickListener(v12 -> {
+                String user_word = formWord.getText().toString().trim();
+                if (user_word.equals("холодильник")){
+                    mRefrigerator.setImageResource(R.drawable.ic_refrigirator);
+                    alert.dismiss();
+                } else{
+                    Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
+                }
+            });
+            alert.show();
         });
 
-        backgroundKitchen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
-                View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
-                builder.setView(view);
+        backgroundKitchen.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
+            View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
+            builder.setView(view);
 
-                AlertDialog alert = builder.create();
+            AlertDialog alert = builder.create();
 
-                EditText formWord = view.findViewById(R.id.word);
-                Button formSubmit = view.findViewById(R.id.check);
+            EditText formWord = view.findViewById(R.id.word);
+            Button formSubmit = view.findViewById(R.id.check);
 
-                formSubmit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String user_word = formWord.getText().toString().trim();
-                        if (user_word.equals("интерьер")){
-                            backgroundKitchen.setBackgroundResource(R.drawable.ic_back_kitchen);
-                            menu.setBackgroundColor(Color.parseColor("#BFEFF7"));
-                            alert.dismiss();
-                        } else{
-                            Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-                alert.show();
+            formSubmit.setOnClickListener(v13 -> {
+                String user_word = formWord.getText().toString().trim();
+                if (user_word.equals("интерьер")){
+                    backgroundKitchen.setBackgroundResource(R.drawable.ic_back_kitchen);
+                    menu.setBackgroundColor(Color.parseColor("#BFEFF7"));
+                    alert.dismiss();
+                } else{
+                    Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
+                }
+            });
+            alert.show();
 
-            }
         });
 
-        mGarnitur1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
-                View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
-                builder.setView(view);
+        mGarnitur1.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
+            View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
+            builder.setView(view);
 
-                AlertDialog alert = builder.create();
+            AlertDialog alert = builder.create();
 
-                EditText formWord = view.findViewById(R.id.word);
-                Button formSubmit = view.findViewById(R.id.check);
+            EditText formWord = view.findViewById(R.id.word);
+            Button formSubmit = view.findViewById(R.id.check);
 
-                formSubmit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String user_word = formWord.getText().toString().trim();
-                        if (user_word.equals("мебель")){
-                            mGarnitur1.setImageResource(R.drawable.ic_garnitur1);
-                            mGarnitur2.setImageResource(R.drawable.ic_garnitur2);
-                            alert.dismiss();
-                        } else{
-                            Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-                alert.show();
-            }
+            formSubmit.setOnClickListener(v14 -> {
+                String user_word = formWord.getText().toString().trim();
+                if (user_word.equals("мебель")){
+                    mGarnitur1.setImageResource(R.drawable.ic_garnitur1);
+                    mGarnitur2.setImageResource(R.drawable.ic_garnitur2);
+                    alert.dismiss();
+                } else{
+                    Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
+                }
+            });
+            alert.show();
         });
 
-        mGarnitur2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
-                View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
-                builder.setView(view);
+        mGarnitur2.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
+            View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
+            builder.setView(view);
 
-                AlertDialog alert = builder.create();
+            AlertDialog alert = builder.create();
 
-                EditText formWord = view.findViewById(R.id.word);
-                Button formSubmit = view.findViewById(R.id.check);
+            EditText formWord = view.findViewById(R.id.word);
+            Button formSubmit = view.findViewById(R.id.check);
 
-                formSubmit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String user_word = formWord.getText().toString().trim();
-                        if (user_word.equals("мебель")){
-                            mGarnitur1.setImageResource(R.drawable.ic_garnitur1);
-                            mGarnitur2.setImageResource(R.drawable.ic_garnitur2);
-                            alert.dismiss();
-                        } else{
-                            Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+            formSubmit.setOnClickListener(v15 -> {
+                String user_word = formWord.getText().toString().trim();
+                if (user_word.equals("мебель")){
+                    mGarnitur1.setImageResource(R.drawable.ic_garnitur1);
+                    mGarnitur2.setImageResource(R.drawable.ic_garnitur2);
+                    alert.dismiss();
+                } else{
+                    Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
+                }
+            });
 
-                alert.show();
-            }
+            alert.show();
         });
 
-        mOven.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
-                View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
-                builder.setView(view);
+        mOven.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Level1Kitchen.this);
+            View view = getLayoutInflater().inflate(R.layout.alert_ask, null);
+            builder.setView(view);
 
-                AlertDialog alert = builder.create();
+            AlertDialog alert = builder.create();
 
-                EditText formWord = view.findViewById(R.id.word);
-                Button formSubmit = view.findViewById(R.id.check);
+            EditText formWord = view.findViewById(R.id.word);
+            Button formSubmit = view.findViewById(R.id.check);
 
-                formSubmit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String user_word = formWord.getText().toString().trim();
-                        if (user_word.equals("плита")){
-                            mOven.setImageResource(R.drawable.ic_oven);
-                            alert.dismiss();
-                        } else{
-                            Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+            formSubmit.setOnClickListener(v16 -> {
+                String user_word = formWord.getText().toString().trim();
+                if (user_word.equals("плита")){
+                    mOven.setImageResource(R.drawable.ic_oven);
+                    alert.dismiss();
+                } else{
+                    Toast.makeText(Level1Kitchen.this, "Вы ввели слово неправильно", Toast.LENGTH_LONG).show();
+                }
+            });
 
-                alert.show();
-            }
+            alert.show();
         });
 
         mBook = findViewById(R.id.book);
-        mBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Level1Kitchen.this, BookActivity.class));
-            }
-        });
+        mBook.setOnClickListener(v -> startActivity(new Intent(Level1Kitchen.this, BookActivity.class)));
     }
     void move(float dX)
     {

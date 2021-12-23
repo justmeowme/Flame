@@ -10,7 +10,9 @@
         android:id="@+id/upper_menu"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#D7D7D7">
+        android:background="#D7D7D7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/book"
@@ -20,6 +22,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/book"
             app:srcCompat="@drawable/mybook" />
 
         <ImageView
@@ -30,6 +33,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/book"
             app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/dictionary"
             app:srcCompat="@drawable/mydict" />
 
         <ImageView
@@ -40,6 +44,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/dictionary"
             app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/list"
             app:srcCompat="@drawable/mylist" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -66,8 +71,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="20sp"
+                android:layout_marginStart="20sp"
                 android:layout_marginBottom="36sp"
+                android:contentDescription="@string/refrigerator"
                 app:srcCompat="@drawable/ic_refrigirator_chb" />
 
             <ImageView
@@ -76,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="36sp"
+                android:contentDescription="@string/garnitur1"
                 app:srcCompat="@drawable/ic_garnitur1_chb" />
 
             <ImageView
@@ -85,6 +92,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="36sp"
                 android:layout_weight="1"
+                android:contentDescription="@string/oven"
                 app:srcCompat="@drawable/ic_oven_chb" />
 
             <ImageView
@@ -93,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="36sp"
+                android:contentDescription="@string/garnitur2"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_garnitur2_chb" />
 
@@ -102,9 +111,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginRight="32sp"
+                android:layout_marginEnd="32sp"
                 android:layout_marginBottom="36sp"
                 android:layout_weight="1"
+                android:contentDescription="@string/table"
                 android:orientation="vertical"
                 app:srcCompat="@drawable/ic_table_chb"
                 tools:ignore="MissingConstraints" />
@@ -114,6 +124,7 @@
                 android:layout_width="133dp"
                 android:layout_height="319dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/player"
                 app:srcCompat="@drawable/new_pers" />
 
 
