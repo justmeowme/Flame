@@ -4,15 +4,19 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,12 +33,23 @@ public class Level1Kitchen extends AppCompatActivity {
     int end_X = 0;                      //конечная точка, до которой мы можем дойти(должна быть перепресвоена нужным значением)
     ImageView player;
     Button left,right;
+
+    //для получения данных о дисплее
+    Display mdisp;
+    Point mdispSize;
+    int maxX,maxY;  //максимальные размеры дисплея
+
+    HorizontalScrollView horizontalScrollView;
     @SuppressLint("ClickableViewAccessibility") //отключили раздражающую подсветку
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level1_kitchen);
+
+        //присваиваем дисплей
+        mdisp = getWindowManager().getDefaultDisplay(); mdispSize = new Point(); mdisp.getSize(mdispSize);
+        maxX = mdispSize.x; maxY = mdispSize.y;
 
         mRefrigerator = findViewById(R.id.refrigerator);
         backgroundKitchen = findViewById(R.id.back_kitchen);
@@ -46,6 +61,7 @@ public class Level1Kitchen extends AppCompatActivity {
         player = findViewById(R.id.player);         //пользователь
         left = findViewById(R.id.ButtonLeft);       //левая кнопка
         right = findViewById(R.id.ButtonRight);     //правая кнопка
+        horizontalScrollView = findViewById(R.id.horizontalScrollView);   //скролл вью
 
         //ставим отложенный запуск кода, ибо инициализация ещё не прошла
         new Handler().postDelayed(() -> {
@@ -251,20 +267,28 @@ public class Level1Kitchen extends AppCompatActivity {
                 player.setRotationY(180);
             else
                 player.setRotationY(0);
-            player.setX(player.getX()+(dX*10));
+            __move(dX);
         }
         else {
             if (dX < 0) {
                 player.setRotationY(180);
-                if (player.getX() > 0)
-                    player.setX(player.getX() + (dX * 10));
+                if (player.getX() > 0) {
+                    __move(dX);
+                    if(player.getX() < end_X-(float)(maxX/2))               //магия скроллинга
+                        horizontalScrollView.scrollBy((int)dX*10,0);
+                }
             } else {
                 player.setRotationY(0);
-                if (player.getX() < end_X)
-                    player.setX(player.getX() + (dX * 10));
+                if (player.getX() < end_X) {
+                    __move(dX);
+                    if(player.getX() > (float)(maxX/2))                     //магия скроллинга
+                        horizontalScrollView.scrollBy((int)dX*10,0);
+                    System.out.println(player.getX());
+                }
             }
         }
         //это использовать предпочтительнее, однако проблема с правильным вызовом функции
         //player.animate().x(player.getX()+(dX*50)).setDuration(500).start();
     }
+    void __move(float dx) {player.setX(player.getX()+(dx*10));}     //создали функцию, чтобы тысячи раз не исправлять её в случае если захотим изменить данные движения
 }

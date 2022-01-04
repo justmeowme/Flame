@@ -127,7 +127,7 @@
                 android:layout_marginBottom="18sp"
                 android:layout_weight="1"
                 android:contentDescription="@string/player"
-                app:srcCompat="@drawable/new_pers" />
+                app:srcCompat="@drawable/ic_flamepers" />
 
 
         </LinearLayout>
